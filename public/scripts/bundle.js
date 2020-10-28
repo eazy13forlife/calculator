@@ -15434,6 +15434,79 @@ module.exports = g;
 
 /***/ }),
 
+/***/ "./source/functions.js":
+/*!*****************************!*\
+  !*** ./source/functions.js ***!
+  \*****************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var add = function add() {
+  for (var _len = arguments.length, numbers = Array(_len), _key = 0; _key < _len; _key++) {
+    numbers[_key] = arguments[_key];
+  }
+
+  return numbers.reduce(function (totalAccumulated, number) {
+    return totalAccumulated + number;
+  });
+};
+
+var subtract = function subtract() {
+  for (var _len2 = arguments.length, numbers = Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+    numbers[_key2] = arguments[_key2];
+  }
+
+  return numbers.reduce(function (total, number, index) {
+    return total - number;
+  });
+};
+
+var multiply = function multiply(numbers) {
+  return numbers.reduce(function (totalAccumulated, number) {
+    return totalAccumulated * number;
+  });
+};
+
+var divide = function divide() {
+  for (var _len3 = arguments.length, array = Array(_len3), _key3 = 0; _key3 < _len3; _key3++) {
+    array[_key3] = arguments[_key3];
+  }
+
+  return array.reduce(function (total, currentNumber) {
+    return total / currentNumber;
+  });
+};
+
+var operate = function operate(operator) {
+  for (var _len4 = arguments.length, numbers = Array(_len4 > 1 ? _len4 - 1 : 0), _key4 = 1; _key4 < _len4; _key4++) {
+    numbers[_key4 - 1] = arguments[_key4];
+  }
+
+  if (operator === "+") {
+    return add.apply(undefined, numbers);
+  } else if (operator === "-") {
+    return subtract.apply(undefined, numbers);
+  } else if (operator === "x") {
+    return multiply.apply(undefined, numbers);
+  } else if (operator === "/") {
+    return divide.apply(undefined, numbers);
+  }
+};
+
+exports.add = add;
+exports.subtract = subtract;
+exports.multiply = multiply;
+exports.divide = divide;
+exports.operate = operate;
+
+/***/ }),
+
 /***/ "./source/index.js":
 /*!*************************!*\
   !*** ./source/index.js ***!
@@ -15444,6 +15517,8 @@ module.exports = g;
 "use strict";
 
 
+var _functions = __webpack_require__(/*! ./functions.js */ "./source/functions.js");
+
 var calculatorBody = document.querySelector(".calculator-body");
 for (var i = 0; i <= 9; i++) {
   var buttonEl = document.createElement("button");
@@ -15451,6 +15526,8 @@ for (var i = 0; i <= 9; i++) {
   buttonEl.setAttribute("id", "_" + i);
   calculatorBody.appendChild(buttonEl);
 }
+
+console.log((0, _functions.operate)("&", 2, 3, 4));
 
 /***/ }),
 

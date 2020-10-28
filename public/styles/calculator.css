@@ -19,13 +19,14 @@ p,body,h1,h2,h3,h4,h5,ul{
   margin:auto;
   display:grid;
   grid-template-columns:repeat(4, 1fr);
-  grid-template-rows:repeat(5, 1fr);
+  grid-template-rows:repeat(6, 1fr);
   grid-template-areas:
   "display display display display"
   "seven eight nine divide"
   "four five six multiply"
   "one two three subtract"
-  "zero decimal equals add";
+  "zero decimal equals add"
+  "clear clear clear clear";
 
 
 }
@@ -79,4 +80,7 @@ p,body,h1,h2,h3,h4,h5,ul{
 }
 #add{
   grid-area:add;
+}
+#clear{
+  grid-area:clear;
 }
