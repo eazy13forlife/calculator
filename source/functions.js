@@ -1,10 +1,10 @@
-const add= (...numbers)=>{
+const add= (numbers)=>{
 	return numbers.reduce((totalAccumulated,number)=>{
 		return totalAccumulated+number
 	})
 }
 
-const subtract= (...numbers)=> {
+const subtract= (numbers)=> {
 	return numbers.reduce((total,number,index)=>{
 			return total-number
 	})
@@ -17,7 +17,7 @@ const multiply= (numbers)=>{
 }
 
 
-const divide=(...array)=>{
+const divide=(array)=>{
   return array.reduce((total,currentNumber)=>{
     return (total/currentNumber)
   })
@@ -28,7 +28,7 @@ const operate=(operator,...numbers)=>{
     return add(...numbers)
   }else if(operator==="-"){
     return subtract(...numbers)
-  }else if(operator==="x"){
+  }else if(operator==="*"){
     return multiply(...numbers);
   }else if(operator==="/"){
     return divide(...numbers);
