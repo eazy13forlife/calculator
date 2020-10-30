@@ -1,6 +1,5 @@
 import{add,subtract,divide,multiply,operate} from "./functions.js"
 
-
 //here we create the calculator body and add all the buttons using a for loop
 const calculatorBody=document.querySelector(".calculator-body")
 const displayEl=document.querySelector("#display");
@@ -23,7 +22,6 @@ for(let i=0;i<=9;i++){
     //if array length is 1 already, it means we have just pressed equal sign, which just adds the solution into the numbersArray.If we're clicking another number, it means we want a new number to replace the number there already. So we clear the numbers Array and get a new displayValue.
     if(numbersArray.length===1){
       numbersArray=[]
-      displayValue="";
       //the new displayValue string is the oldValue plus whatever number we typed
       displayValue+=e.target.value;
       //set the displayEl.value equal to whatever displayValue is
@@ -63,9 +61,8 @@ allOperators.forEach((operator)=>{
     //set the operator equal to the value of the target,in this case, multiply;
     operator=e.target.value;
     let number=+displayValue;
-		let letterNumber=displayValue;
     //if first number exists and operator exists but the second number is empty(meaning it hasnt been entered yet),yet we're clicking calculator again, just change the operator, because means we want a new operator.
-    if((numbersArray[0]||numbersArray[0]===0)&&(numbersArray[1])&&(letterNumber==="")){
+    if((numbersArray[0]||numbersArray[0]===0)&&(numbersArray[1])&&(displayValue==="")){
       numbersArray[1]=operator;
 		 //if the first number exists or it equals 0 AND the operator doesn't exist(which means the equals sign has just been pushed),just push the operator in and that's it. Then we will select another number and after pressing multiply again, the last else statements will run.
     }else if((numbersArray[0]||numbersArray[0]===0)&&!numbersArray[1]){
@@ -105,10 +102,9 @@ document.querySelector("#equals").addEventListener("click",(e)=>{
     if(numbersArray.length===1||numbersArray.length===0){
 
     }else{
-      //but if the first number and operator has been done, but our second number hasnt been entered,meaning its equal to a blank string or 0(but we're clicking equal again, don't do anything)
-      let letterNumber=displayValue;
+      //but if the first number and operator has been done, but our second number hasnt been entered,meaning its equal to a blank string(but we're clicking equal again,) don't do anything.
       let number=+displayValue;
-      if(letterNumber===""){
+      if(displayValue===""){
 
       }else{
       numbersArray.push(number)
@@ -132,6 +128,8 @@ document.querySelector("#equals").addEventListener("click",(e)=>{
       displayEl.value=displayValue;
       numbersArray=[];
       numbersArray.push(displayValue);
+      //reset displayValue equal to an empty string so after equals sign, so we can maintan displayValue alwaus being a string of some sort. We dont want it to be a string sometimes and a number the next.
+      displayValue="";
     }
   }
 })
@@ -144,12 +142,11 @@ document.querySelector("#clear").addEventListener("click",(e)=>{
   displayEl.value=displayValue;
 })
 
-//event listener for the delete button
+//event listener for the backspace button
 document.querySelector("#delete").addEventListener("click",(e)=>{
   //let letterNumber equal to display value
-  let letterNumber=displayValue;
-  //if letterNumber is equal to a string, meaning nothing has been entered for the current number, there is nothing to backspace, so don't delete it. Also if the displayValue is a number that means we just pressed equal sign and we don't want to delete that number. Backspace is only for a number that we are typing
-  if(letterNumber===""||typeof displayValue==="number"){
+  //if displayValue is equal to an empty string, meaning nothing has been entered for the current number, there is nothing to backspace, so don't delete it.
+  if(displayValue===""){
 
   }else{
   //split the displayValue string into an array of items
