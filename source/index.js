@@ -22,8 +22,8 @@ for(let i=0;i<=9;i++){
   buttonEl.setAttribute("value",`${i}`);
   //add event listener to each button
   buttonEl.addEventListener("click",(e)=>{
-    //if array length is 3 already, it means we have just pressed equal sign, which leaves the array as it is. If that is the case then get a new numbersArray and empty displayValue again
-    if(numbersArray.length===3){
+    //if array length is 1 already, it means we have just pressed equal sign, which just adds the solution into the numbersArray.If we're clicking another number, it means we want a new number to replace the number there already. So we clear the numbers Array and get a new displayValue.
+    if(numbersArray.length===1){
       numbersArray=[]
       displayValue="";
       //the new displayValue string is the oldValue plus whatever number we typed
@@ -60,10 +60,10 @@ allOperators.forEach((operator)=>{
     operator=e.target.value;
     let number=+displayValue;
 		let letterNumber=displayValue;
-    //if first number exists and operator exists but the second number is empty,yet we're clicking calculator again, just change the operator
+    //if first number exists and operator exists but the second number is empty(meaning it hasnt been entered yet),yet we're clicking calculator again, just change the operator, because means we want a new operator.
     if((numbersArray[0]||numbersArray[0]===0)&&(numbersArray[1])&&(letterNumber==="")){
       numbersArray[1]=operator;
-		 //if the first number exists or it equals 0 AND the operator doesn't exist,just push the operator in and that's it. Then we will select another number and after pressing multiply again, the other else statements will run.
+		 //if the first number exists or it equals 0 AND the operator doesn't exist(which means the equals sign has just been pushed),just push the operator in and that's it. Then we will select another number and after pressing multiply again, the last else statements will run.
     }else if((numbersArray[0]||numbersArray[0]===0)&&!numbersArray[1]){
       numbersArray.push(operator);
     }else{
@@ -103,15 +103,16 @@ document.querySelector("#equals").addEventListener("click",(e)=>{
 
     }else{
       //but if the first number and operator has been done, but our second number hasnt been entered,meaning its equal to a blank string or 0(but we're clicking equal again, don't do anything)
-      let number=displayValue;
-      if(number===""){
+      let letterNumber=displayValue;
+      let number=+displayValue;
+      if(letterNumber===""){
 
       }else{
-        number=+displayValue;
       numbersArray.push(number)
       const currentOperator=numbersArray[1];
       const newNumbersArray= numbersArray.join("")
-                        .replace(/\D/g," ")
+                        //do not match any digits 0-9 or a decimal
+                        .replace(/[^\d.]/g," ")
                         .split(" ")
                         .filter((number)=>{
                           if(number!==""){
