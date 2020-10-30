@@ -10,14 +10,27 @@ p,body,h1,h2,h3,h4,h5,ul{
   padding:0px;
 }
 
+body{
+  background-color:hsla(198, 78%, 79%, 1);
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
 
 
 .calculator-body{
-  width:400px;
+  box-shadow:5px 10px 5px grey;
+  width:30%;
   height:400px;
   border:1px solid black;
   margin:auto;
+  background-color:black;
+  grid-row-gap:5px;
+  grid-column-gap:5px;
   display:grid;
+  border-top-right-radius:20px;
+  border-top-left-radius:20px;
   grid-template-columns:repeat(4, 1fr);
   grid-template-rows:repeat(6, 1fr);
   grid-template-areas:
@@ -27,11 +40,16 @@ p,body,h1,h2,h3,h4,h5,ul{
   "one two three subtract"
   "zero decimal equals add"
   "clear-delete clear-delete clear-delete clear-delete ";
-
-
 }
 #display{
   grid-area:display;
+  background-color:hsla(198, 78%, 85%, 1);
+  color:background-color:rgb(47, 44, 44);
+  font-size:1.5rem;
+  border-top-right-radius:20px;
+  border-top-left-radius:20px;
+  border:0.5px solid black;
+
 }
 #_7{
   grid-area:seven;
@@ -82,13 +100,28 @@ p,body,h1,h2,h3,h4,h5,ul{
   grid-area:add;
 }
 #clear{
-  flex:1 1 75%;
+  grid-area:clear;
 }
 #delete{
-  flex:1 1 25%;
+  grid-area:delete;
 }
 .clear-delete{
-  background-color:blue;
   grid-area:clear-delete;
-  display:flex;
+  display:grid;
+  width:100%;
+  grid-template-columns:repeat(4, minmax(1fr, 1fr));
+  grid-column-gap:5px;
+  grid-template-areas:
+  "clear clear clear delete";
+}
+button{
+  background-color:rgb(47, 44, 44);
+  color:hsla(198, 78%, 85%, 1);
+  font-weight:bold;
+  font-size:1.1rem;
+
+  outline:none;
+}
+button:active{
+
 }
