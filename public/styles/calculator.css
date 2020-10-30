@@ -26,7 +26,7 @@ p,body,h1,h2,h3,h4,h5,ul{
   "four five six multiply"
   "one two three subtract"
   "zero decimal equals add"
-  "clear clear clear clear";
+  "clear-delete clear-delete clear-delete clear-delete ";
 
 
 }
@@ -82,5 +82,13 @@ p,body,h1,h2,h3,h4,h5,ul{
   grid-area:add;
 }
 #clear{
-  grid-area:clear;
+  flex:1 1 75%;
+}
+#delete{
+  flex:1 1 25%;
+}
+.clear-delete{
+  background-color:blue;
+  grid-area:clear-delete;
+  display:flex;
 }

@@ -19,7 +19,11 @@ const multiply= (numbers)=>{
 
 const divide=(array)=>{
   return array.reduce((total,currentNumber)=>{
+    if(currentNumber===0){
+      return `You can't divide by 0 silly!`
+    }else{
     return (total/currentNumber)
+    }
   })
 }
 

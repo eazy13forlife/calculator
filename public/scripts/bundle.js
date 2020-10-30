@@ -15467,7 +15467,11 @@ var multiply = function multiply(numbers) {
 
 var divide = function divide(array) {
   return array.reduce(function (total, currentNumber) {
-    return total / currentNumber;
+    if (currentNumber === 0) {
+      return "You can't divide by 0 silly!";
+    } else {
+      return total / currentNumber;
+    }
   });
 };
 
@@ -15507,9 +15511,6 @@ exports.operate = operate;
 
 var _functions = __webpack_require__(/*! ./functions.js */ "./source/functions.js");
 
-var mik = 0;
-console.log(mik.toString());
-
 //here we create the calculator body and add all the buttons using a for loop
 var calculatorBody = document.querySelector(".calculator-body");
 var displayEl = document.querySelector("#display");
@@ -15547,13 +15548,18 @@ for (var i = 0; i <= 9; i++) {
   calculatorBody.appendChild(buttonEl);
 }
 
-console.log(document.querySelectorAll("button"));
 //event listener for the decimal
 document.querySelector("#decimal").addEventListener("click", function (e) {
-  //the new displayValue string is the oldValue plus whatever number we typed
-  displayValue += e.target.value;
-  //set the displayEl.value equal to whatever displayValue is
-  displayEl.value = displayValue;
+  //if the displayValue already includes a decimal, don't do anything. We don't want another decimal added
+  if (displayValue.includes(".")) {
+
+    //but if there is no decimal, add that decimal to the displayValue string
+  } else {
+    //the new displayValue string is the oldValue plus whatever number we typed
+    displayValue += e.target.value;
+    //set the displayEl.value equal to whatever displayValue is
+    displayEl.value = displayValue;
+  }
 });
 
 //event listener for all the operators
@@ -15592,7 +15598,6 @@ allOperators.forEach(function (operator) {
         numbersArray.push(number);
         //also push operator in the fuction so we have it saved as well
         numbersArray.push(operator);
-        console.log(numbersArray);
       }
     }
     //set displayValue equal to an empty string, so when we click another number, displayValue will add that number to our empty string and then displayEl.value will be this string
@@ -15611,21 +15616,24 @@ document.querySelector("#equals").addEventListener("click", function (e) {
       numbersArray.push(number);
       var currentOperator = numbersArray[1];
       var newNumbersArray = numbersArray.join("")
-      //do not match any digits 0-9 or a decimal
-      .replace(/[^\d.]/g, " ").split(" ").filter(function (number) {
+      //Match anything that is not 0-9 or a decimal and replace with empty string.
+      .replace(/[^\d.]/g, " ")
+      //split wherever we see an empty string(this will lead to items that are empty strings in our array)
+      .split(" ")
+      //looking at our current array, filter our the items that are  not an empty string in our array
+      .filter(function (number) {
         if (number !== "") {
           return true;
         }
       });
+      //for each item in our newNUmbers array, make it a number instead of a string
       newNumbersArray.forEach(function (number, index) {
         newNumbersArray[index] = +number;
       });
-      console.log(newNumbersArray);
       displayValue = (0, _functions.operate)(currentOperator, newNumbersArray);
       displayEl.value = displayValue;
       numbersArray = [];
       numbersArray.push(displayValue);
-      console.log(numbersArray);
     }
   }
 });
@@ -15635,6 +15643,23 @@ document.querySelector("#clear").addEventListener("click", function (e) {
   numbersArray = [];
   displayValue = "";
   displayEl.value = displayValue;
+});
+
+//event listener for the delete button
+document.querySelector("#delete").addEventListener("click", function (e) {
+  //let letterNumber equal to display value
+  var letterNumber = displayValue;
+  //if letterNumber is equal to a string, meaning nothing has been entered for the current number, there is nothing to backspace, so don't delete it. Also if the displayValue is a number that means we just pressed equal sign and we don't want to delete that number. Backspace is only for a number that we are typing
+  if (letterNumber === "" || typeof displayValue === "number") {} else {
+    //split the displayValue string into an array of items
+    var displayArray = displayValue.split("");
+    //pop the last item
+    displayArray.pop();
+    //join the array into a string using a spaceless string
+    displayValue = displayArray.join("");
+    //set the displayEl value to displayValue;
+    displayEl.value = displayValue;
+  }
 });
 
 /***/ }),
