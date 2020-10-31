@@ -1,13 +1,14 @@
 import{operate} from "./functions.js"
-import{buttonOperate,giveOperator,displayEl,giveDisplayValue,equalsFunction} from "./eventListeners.js"
+import{buttonOperate,giveOperator,displayEl,giveDisplayValue,equalsFunction,giveNumbersArray,changeDisplayAndElement} from "./eventListeners.js"
 
+const mike=2;
+console.log(mike.toFixed(4))
 //here we create the calculator body and add all the buttons using a for loop
 const calculatorBody=document.querySelector(".calculator-body")
 //displayValue is the string value entered into the displayEl, aka our actual number,but in string form .It begins as an empty string and adds whatever number we typed in, so because of this the numbers are added as strings, instead of actual numbers.so 1 typed four times is 1111 instead of 4. Later on, we will make this string into a number.
 let displayValue=giveDisplayValue();
-let numbersArray=[];
+let numbersArray=giveNumbersArray();
 let operator=giveOperator();
-
 
 const allOperators=document.querySelectorAll(".operator");
 
@@ -26,9 +27,8 @@ for(let i=0;i<=9;i++){
     if(numbersArray.length===1){
       numbersArray=[]
       //the new displayValue string is the oldValue plus whatever number we typed
-      displayValue+=e.target.value;
-      //set the displayEl.value equal to whatever displayValue is
-      displayEl.value=displayValue;
+      changeDisplayAndElement(e.target.value);
+      displayValue=giveDisplayValue();
     }else{
       //the new displayValue string is the oldValue plus whatever number we typed
       displayValue+=e.target.value;
@@ -42,7 +42,6 @@ for(let i=0;i<=9;i++){
 
 //add event listener for keyboard support 0-9
 window.addEventListener("keydown",(e)=>{
-  console.log(e);
   for(let i=0;i<=9;i++){
       if(e.key===`${i}`){
         if(numbersArray.length===1){
@@ -68,6 +67,7 @@ window.addEventListener("keydown",(e)=>{
       buttonOperate(e.key,displayValue,numbersArray);
       displayValue=giveDisplayValue();
       operator=giveOperator();
+      numbersArray=giveNumbersArray();
   }
 })
 
@@ -94,6 +94,7 @@ allOperators.forEach((operator)=>{
     //set displayValue equal to an empty string, so when we click another number, displayValue will add that number to our empty string and then displayEl.value will be this string
     displayValue=giveDisplayValue();
     operator=giveOperator();
+    numbersArray=giveNumbersArray();
   })
 })
 
@@ -101,12 +102,14 @@ allOperators.forEach((operator)=>{
 document.querySelector("#equals").addEventListener("click",(e)=>{
   equalsFunction(numbersArray,displayValue);
   displayValue=giveDisplayValue();
+  numbersArray=giveNumbersArray();
 })
 
 window.addEventListener("keydown",(e)=>{
   if(e.key==="="){
     equalsFunction(numbersArray,displayValue);
     displayValue=giveDisplayValue();
+    numbersArray=giveNumbersArray();9
   }
 })
 
