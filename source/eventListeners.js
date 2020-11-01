@@ -1,7 +1,6 @@
 import{operate} from "./functions.js"
 import{getCat} from "./index.js"
 const displayEl=document.querySelector("#display");
-let operator;
 let displayValue="";
 let numbersArray=[];
 
@@ -12,17 +11,17 @@ const giveNumbersArray=()=>{
 const giveDisplayValue=()=>{
   return displayValue;
 }
-const giveOperator=()=>{
-  return operator;
-}
+
 
 
 const buttonOperate=(operatorValue,displayString,array)=>{
   //set the operator equal to the value of the target,in this case, multiply;
-  operator=operatorValue;
+  let operator=operatorValue;
   let number=+displayString;
   //if first number exists and operator exists but the second number is empty(meaning it hasnt been entered yet),yet we're clicking calculator again, just change the operator, because means we want a new operator. So, a number and an operator means that we just ran one of the operations. After we run it, we immediately call giveNumbersArray so  numbersArray is a reference to the array argument, so anything that happens to the array arguent also happens to the numbersArray argument, making them equal. Which is what we want.
-  if((array[0]||array[0]===0)&&(array[1])&&(displayString==="")){
+  if(!array[0]&&array[0]!==0&&displayString===""){
+    displayEl.value=`Put in a number`
+  }else if((array[0]||array[0]===0)&&(array[1])&&(displayString==="")){
     //going to affect the array argument
     array[1]=operator;
    //if the first number exists or it equals 0 AND the operator doesn't exist(which means the equals sign has just been pushed),just push the operator in and that's it. Then we will select another number and after pressing multiply again, the last else statements will run. When the equal sign runs,the numberArray here changes, so we called giveNumbersArray in the other function and set it equal to the array argument. So the numbersArray here is a reference to the array argument so any change made to one affects the other. So pushing the operator into the array argument here, also affects numbersArray, so they will be equal which is what we want.
@@ -103,4 +102,4 @@ const changeDisplayAndElement=(stringValue)=>{
   displayEl.value=displayValue;
 }
 
-export{buttonOperate,giveOperator,displayEl,giveDisplayValue,equalsFunction,giveNumbersArray,changeDisplayAndElement}
+export{buttonOperate,displayEl,giveDisplayValue,equalsFunction,giveNumbersArray,changeDisplayAndElement}

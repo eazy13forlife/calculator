@@ -1,14 +1,13 @@
 import{operate} from "./functions.js"
-import{buttonOperate,giveOperator,displayEl,giveDisplayValue,equalsFunction,giveNumbersArray,changeDisplayAndElement} from "./eventListeners.js"
+import{buttonOperate,displayEl,giveDisplayValue,equalsFunction,giveNumbersArray,changeDisplayAndElement} from "./eventListeners.js"
 
-const mike=2;
-console.log(mike.toFixed(4))
+console.log("hi")
 //here we create the calculator body and add all the buttons using a for loop
 const calculatorBody=document.querySelector(".calculator-body")
 //displayValue is the string value entered into the displayEl, aka our actual number,but in string form .It begins as an empty string and adds whatever number we typed in, so because of this the numbers are added as strings, instead of actual numbers.so 1 typed four times is 1111 instead of 4. Later on, we will make this string into a number.
 let displayValue=giveDisplayValue();
 let numbersArray=giveNumbersArray();
-let operator=giveOperator();
+
 
 const allOperators=document.querySelectorAll(".operator");
 
@@ -66,7 +65,6 @@ window.addEventListener("keydown",(e)=>{
   if(e.key==="+"||e.key==="*"||e.key==="-"||e.key==="/"){
       buttonOperate(e.key,displayValue,numbersArray);
       displayValue=giveDisplayValue();
-      operator=giveOperator();
       numbersArray=giveNumbersArray();
   }
 })
@@ -93,7 +91,6 @@ allOperators.forEach((operator)=>{
     buttonOperate(e.target.value,displayValue,numbersArray);
     //set displayValue equal to an empty string, so when we click another number, displayValue will add that number to our empty string and then displayEl.value will be this string
     displayValue=giveDisplayValue();
-    operator=giveOperator();
     numbersArray=giveNumbersArray();
   })
 })

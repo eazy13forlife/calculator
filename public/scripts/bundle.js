@@ -15447,14 +15447,13 @@ module.exports = g;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.changeDisplayAndElement = exports.giveNumbersArray = exports.equalsFunction = exports.giveDisplayValue = exports.displayEl = exports.giveOperator = exports.buttonOperate = undefined;
+exports.changeDisplayAndElement = exports.giveNumbersArray = exports.equalsFunction = exports.giveDisplayValue = exports.displayEl = exports.buttonOperate = undefined;
 
 var _functions = __webpack_require__(/*! ./functions.js */ "./source/functions.js");
 
 var _index = __webpack_require__(/*! ./index.js */ "./source/index.js");
 
 var displayEl = document.querySelector("#display");
-var operator = void 0;
 var displayValue = "";
 var numbersArray = [];
 
@@ -15465,16 +15464,15 @@ var giveNumbersArray = function giveNumbersArray() {
 var giveDisplayValue = function giveDisplayValue() {
   return displayValue;
 };
-var giveOperator = function giveOperator() {
-  return operator;
-};
 
 var buttonOperate = function buttonOperate(operatorValue, displayString, array) {
   //set the operator equal to the value of the target,in this case, multiply;
-  operator = operatorValue;
+  var operator = operatorValue;
   var number = +displayString;
   //if first number exists and operator exists but the second number is empty(meaning it hasnt been entered yet),yet we're clicking calculator again, just change the operator, because means we want a new operator. So, a number and an operator means that we just ran one of the operations. After we run it, we immediately call giveNumbersArray so  numbersArray is a reference to the array argument, so anything that happens to the array arguent also happens to the numbersArray argument, making them equal. Which is what we want.
-  if ((array[0] || array[0] === 0) && array[1] && displayString === "") {
+  if (!array[0] && array[0] !== 0 && displayString === "") {
+    displayEl.value = "Put in a number";
+  } else if ((array[0] || array[0] === 0) && array[1] && displayString === "") {
     //going to affect the array argument
     array[1] = operator;
     //if the first number exists or it equals 0 AND the operator doesn't exist(which means the equals sign has just been pushed),just push the operator in and that's it. Then we will select another number and after pressing multiply again, the last else statements will run. When the equal sign runs,the numberArray here changes, so we called giveNumbersArray in the other function and set it equal to the array argument. So the numbersArray here is a reference to the array argument so any change made to one affects the other. So pushing the operator into the array argument here, also affects numbersArray, so they will be equal which is what we want.
@@ -15552,7 +15550,6 @@ var changeDisplayAndElement = function changeDisplayAndElement(stringValue) {
 };
 
 exports.buttonOperate = buttonOperate;
-exports.giveOperator = giveOperator;
 exports.displayEl = displayEl;
 exports.giveDisplayValue = giveDisplayValue;
 exports.equalsFunction = equalsFunction;
@@ -15636,14 +15633,12 @@ var _functions = __webpack_require__(/*! ./functions.js */ "./source/functions.j
 
 var _eventListeners = __webpack_require__(/*! ./eventListeners.js */ "./source/eventListeners.js");
 
-var mike = 2;
-console.log(mike.toFixed(4));
+console.log("hi");
 //here we create the calculator body and add all the buttons using a for loop
 var calculatorBody = document.querySelector(".calculator-body");
 //displayValue is the string value entered into the displayEl, aka our actual number,but in string form .It begins as an empty string and adds whatever number we typed in, so because of this the numbers are added as strings, instead of actual numbers.so 1 typed four times is 1111 instead of 4. Later on, we will make this string into a number.
 var displayValue = (0, _eventListeners.giveDisplayValue)();
 var numbersArray = (0, _eventListeners.giveNumbersArray)();
-var operator = (0, _eventListeners.giveOperator)();
 
 var allOperators = document.querySelectorAll(".operator");
 
@@ -15699,7 +15694,6 @@ window.addEventListener("keydown", function (e) {
   if (e.key === "+" || e.key === "*" || e.key === "-" || e.key === "/") {
     (0, _eventListeners.buttonOperate)(e.key, displayValue, numbersArray);
     displayValue = (0, _eventListeners.giveDisplayValue)();
-    operator = (0, _eventListeners.giveOperator)();
     numbersArray = (0, _eventListeners.giveNumbersArray)();
   }
 });
@@ -15724,7 +15718,6 @@ allOperators.forEach(function (operator) {
     (0, _eventListeners.buttonOperate)(e.target.value, displayValue, numbersArray);
     //set displayValue equal to an empty string, so when we click another number, displayValue will add that number to our empty string and then displayEl.value will be this string
     displayValue = (0, _eventListeners.giveDisplayValue)();
-    operator = (0, _eventListeners.giveOperator)();
     numbersArray = (0, _eventListeners.giveNumbersArray)();
   });
 });
